@@ -73,7 +73,7 @@
             let discountCode = document.getElementById("discountCode").value;
             if (discountCode === "SAVE10") {
                 let discount = subtotal * 0.10;
-                total -= discount;
+                total = subtotal - discount + tax;
             }
 
             document.getElementById("totalAmount").innerText = `Total: $${total.toFixed(2)}`;
