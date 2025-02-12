@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buggy Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fce4ec;
+        }
+        .checkout-container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input {
+            width: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <h2>🛍 Cute Checkout 🛍</h2>
+        <div class="item">
+            <span>Shirt</span> <input type="number" id="shirtQty" value="1" min="0" onchange="calculateTotal()"> x $20
+        </div>
+        <div class="item">
+            <span>Pants</span> <input type="number" id="pantsQty" value="1" min="0" onchange="calculateTotal()"> x $30
+        </div>
+        <div class="item">
+            <span>Shoes</span> <input type="number" id="shoesQty" value="1" min="0" onchange="calculateTotal()"> x $50
+        </div>
+        <div>
+            <input type="text" id="discountCode" placeholder="Enter discount code">
+        </div>
+        <button onclick="calculateTotal()">Checkout</button>
+        <div class="total" id="totalAmount">Total: $0</div>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            let shirtQty = parseInt(document.getElementById("shirtQty").value) || 0;
+            let pantsQty = parseInt(document.getElementById("pantsQty").value) || 0;
+            let shoesQty = parseInt(document.getElementById("shoesQty").value) || 0;
+
+            let subtotal = (shirtQty * 20) + (pantsQty * 30) + (shoesQty * 50);
+            let tax = subtotal * 0.10;
+            let total = subtotal + tax;
+            
+            let discountCode = document.getElementById("discountCode").value;
+            if (discountCode === "SAVE10") {
+                let discount = subtotal * 0.10;
+                total -= discount;
+            }
+
+            document.getElementById("totalAmount").innerText = `Total: $${total.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
